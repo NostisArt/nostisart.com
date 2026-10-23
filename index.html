@@ -1,0 +1,239 @@
+<title>Nostis Art</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@200;300;400&display=swap">
+
+<style>
+  /* ─── Design tokens ───────────────────────────────────────────────────────
+     Layout: full-bleed painting background, overlay, content anchored bottom-left
+     Color:  warm whites on dark scrim; warm-gold accent rule
+     Type:   DM Serif Display italic (headline) / Jost 200-300 (body, labels)
+  ──────────────────────────────────────────────────────────────────────── */
+  :root {
+    --bg: #1a1612;
+    --scrim: rgba(18, 14, 10, 0.50);
+    --fg: #f4efe8;
+    --fg-dim: rgba(244, 239, 232, 0.60);
+    --accent: #c8a97e;
+    --accent-dim: rgba(200, 169, 126, 0.30);
+    --btn-bg: rgba(244, 239, 232, 0.08);
+    --btn-hover: rgba(244, 239, 232, 0.16);
+    --btn-border: rgba(244, 239, 232, 0.40);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ─── Background painting ─────────────────────────────────────────────── */
+  .scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .scene-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    display: block;
+  }
+
+  .scene-scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--scrim);
+  }
+
+  /* ─── Page layout ─────────────────────────────────────────────────────── */
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: max(32px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
+  }
+
+  /* ─── Header ──────────────────────────────────────────────────────────── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-inline: clamp(24px, 5vw, 80px);
+  }
+
+  .logo {
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.82rem, 1.6vw, 0.96rem);
+    font-weight: 300;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  .location {
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.62rem, 1vw, 0.74rem);
+    font-weight: 200;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+
+  /* ─── Accent rule ─────────────────────────────────────────────────────── */
+  .rule {
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    margin: clamp(40px, 8vh, 80px) clamp(24px, 5vw, 80px) 0;
+    opacity: 0.85;
+  }
+
+  /* ─── Hero copy ───────────────────────────────────────────────────────── */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-inline: clamp(24px, 5vw, 80px);
+    padding-bottom: clamp(40px, 8vh, 72px);
+  }
+
+  .tagline {
+    font-family: 'DM Serif Display', 'Georgia', serif;
+    font-size: clamp(2.2rem, 5.8vw, 4.6rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.13;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    text-wrap: balance;
+    max-width: 15ch;
+    margin-bottom: clamp(16px, 2.5vh, 28px);
+  }
+
+  .subline {
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.88rem, 1.4vw, 1rem);
+    font-weight: 200;
+    line-height: 1.78;
+    letter-spacing: 0.03em;
+    color: var(--fg-dim);
+    max-width: 46ch;
+    margin-bottom: clamp(28px, 4.5vh, 48px);
+  }
+
+  /* ─── CTA button ──────────────────────────────────────────────────────── */
+  .btn {
+    display: inline-block;
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.68rem, 1vw, 0.78rem);
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--fg);
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    padding: 13px 30px;
+    text-decoration: none;
+    transition: background 0.22s ease, border-color 0.22s ease;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+
+  .btn:hover, .btn:focus-visible {
+    background: var(--btn-hover);
+    border-color: var(--fg-dim);
+    outline: none;
+  }
+
+  /* ─── Footer ──────────────────────────────────────────────────────────── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: clamp(24px, 5vw, 80px);
+    padding-top: 22px;
+    border-top: 1px solid var(--accent-dim);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-status {
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 200;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .footer-email {
+    font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 200;
+    letter-spacing: 0.10em;
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-email:hover {
+    color: var(--fg);
+  }
+
+  /* ─── Mobile ──────────────────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .scene-img { object-position: 60% 35%; }
+    .rule { margin-top: 32px; }
+    .tagline { max-width: 100%; }
+    .subline { max-width: 100%; }
+    .footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+
+<!-- Background painting: "Mountainous Landscape at Vicovaro" Simon Denis, c.1786–1800, Metropolitan Museum of Art (Open Access) -->
+<div class="scene" aria-hidden="true">
+  <img
+    class="scene-img"
+    src="https://images.metmuseum.org/CRDImages/dp/original/DP167533.jpg"
+    alt=""
+    loading="eager"
+    decoding="async"
+  >
+  <div class="scene-scrim"></div>
+</div>
+
+<div class="page">
+  <header class="header">
+    <a class="logo" href="#">Nostis Art</a>
+    <span class="location">Central Valley, California</span>
+  </header>
+
+  <div class="rule" role="presentation"></div>
+
+  <main class="hero">
+    <h1 class="tagline">Curated artwork for commercial and residential spaces</h1>
+    <p class="subline">We help restaurants, hotels, offices and private residences find art that belongs.</p>
+    <a class="btn" href="mailto:studio@nostisart.com">Get in touch</a>
+  </main>
+
+  <footer class="footer">
+    <span class="footer-status">Coming Soon</span>
+    <a class="footer-email" href="mailto:studio@nostisart.com">studio@nostisart.com</a>
+  </footer>
+</div>
