@@ -6,18 +6,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@200;300;400&display=swap">
 
 <style>
-  /* ─── Design tokens ───────────────────────────────────────────────────────
-     Layout: full-bleed painting, bottom-gradient scrim only, text bottom-left
-     Color:  painting mostly unobscured; dark gradient behind text only
-     Type:   DM Serif Display (logo + headline italic) / Jost 200 (body)
-  ──────────────────────────────────────────────────────────────────────── */
   :root {
     --bg: #1c1a16;
     --fg: #f5f0ea;
-    --fg-dim: rgba(245, 240, 234, 0.65);
+    --fg-dim: rgba(245, 240, 234, 0.75);
     --btn-border: rgba(245, 240, 234, 0.55);
     --btn-hover: rgba(245, 240, 234, 0.12);
-    --footer-line: rgba(245, 240, 234, 0.18);
+    --header-line: rgba(245, 240, 234, 0.15);
+    --footer-line: rgba(245, 240, 234, 0.25);
     color-scheme: dark;
   }
 
@@ -30,7 +26,6 @@
     font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
   }
 
-  /* ─── Background painting ─────────────────────────────────────────────── */
   .scene {
     position: fixed;
     inset: 0;
@@ -46,22 +41,19 @@
     display: block;
   }
 
-  /* Framer look: very light uniform tint + dark gradient rising from bottom */
   .scene-scrim {
     position: absolute;
     inset: 0;
-    /* Light overall tint so painting stays vivid */
     background:
       linear-gradient(
         to top,
-        rgba(10, 8, 6, 0.82) 0%,
-        rgba(10, 8, 6, 0.55) 28%,
-        rgba(10, 8, 6, 0.18) 55%,
-        rgba(10, 8, 6, 0.08) 100%
+        rgba(10, 8, 6, 0.88) 0%,
+        rgba(10, 8, 6, 0.60) 30%,
+        rgba(10, 8, 6, 0.22) 58%,
+        rgba(10, 8, 6, 0.06) 100%
       );
   }
 
-  /* ─── Page layout ─────────────────────────────────────────────────────── */
   .page {
     position: relative;
     z-index: 1;
@@ -73,12 +65,14 @@
     padding-block: max(28px, env(safe-area-inset-top, 0px)) max(28px, env(safe-area-inset-bottom, 0px));
   }
 
-  /* ─── Header ──────────────────────────────────────────────────────────── */
+  /* Header with bottom separator bar */
   .header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     padding-inline: clamp(24px, 4vw, 72px);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--header-line);
   }
 
   .logo {
@@ -100,12 +94,12 @@
     color: var(--fg-dim);
   }
 
-  /* ─── Hero copy ───────────────────────────────────────────────────────── */
+  /* Hero: vertically centered, pushed slightly toward middle */
   .hero {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     padding-inline: clamp(24px, 4vw, 72px);
     padding-bottom: clamp(32px, 6vh, 60px);
   }
@@ -134,7 +128,6 @@
     margin-bottom: clamp(24px, 4vh, 40px);
   }
 
-  /* ─── CTA button ──────────────────────────────────────────────────────── */
   .btn {
     display: inline-block;
     font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
@@ -157,7 +150,6 @@
     outline: none;
   }
 
-  /* ─── Footer ──────────────────────────────────────────────────────────── */
   .footer {
     display: flex;
     justify-content: space-between;
@@ -172,7 +164,7 @@
   .footer-status {
     font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.62rem;
-    font-weight: 200;
+    font-weight: 300;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--fg-dim);
@@ -181,7 +173,7 @@
   .footer-email {
     font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
     font-size: 0.68rem;
-    font-weight: 200;
+    font-weight: 300;
     letter-spacing: 0.08em;
     color: var(--fg-dim);
     text-decoration: none;
@@ -190,7 +182,6 @@
 
   .footer-email:hover { color: var(--fg); }
 
-  /* ─── Mobile ──────────────────────────────────────────────────────────── */
   @media (max-width: 480px) {
     .scene-img { object-position: 55% 30%; }
     .tagline { max-width: 100%; }
@@ -200,13 +191,7 @@
 </style>
 
 <div class="scene" aria-hidden="true">
-  <img
-    class="scene-img"
-    src="./painting.jpg"
-    alt=""
-    loading="eager"
-    decoding="async"
-  >
+  <img class="scene-img" src="./painting.jpg" alt="" loading="eager" decoding="async">
   <div class="scene-scrim"></div>
 </div>
 
